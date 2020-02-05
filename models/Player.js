@@ -31,4 +31,5 @@ module.exports = {
     deletePlayers(id) {
         return db.run("DELETE FROM Player WHERE rowid = ?", id)
     },
+    
 }

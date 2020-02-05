@@ -87,7 +87,7 @@ router.get('/players', (req, res, next) => {
                 content += '<td>' + player['createdAt'] + '</td>'
                 content += '<td> <form action="/players/'+player['id']+'/edit/?_method=GET", method="GET"> <button type="submit" class="btn btn-success"><i class="fa fa-pencil fa-lg mr-2"></i>Edit</button> </form> </td>'
                 // content += '<td> <form action="/players/'+player['id']+'/?_method=GET", method="GET"> <button type="submit" class="btn btn-info"><i class="fa fa-eye fa-lg mr-2"></i>See</button> </form> </td>'
-                content += '<td> <form action="/players/'+player['id']+'/?_method=DELETE", method="DELETE"> <button type="submit" class="btn btn-danger"><i class="fa fa-trash-o fa-lg mr-2"></i>Remove</button> </form> </td>'
+                content += '<td> <form action="/players/'+player['id']+'/?_method=DELETE", method="POST"> <button type="submit" class="btn btn-danger"><i class="fa fa-trash-o fa-lg mr-2"></i>Remove</button> </form> </td>'
                 content += '</tr>'
               })
               
@@ -125,6 +125,25 @@ router.post('/players', (req, res, next) => {
         return next(err)
     })
 })
+
+// Supprimer un player
+router.post('/players/:id', (req, res, next) => {
+    Player.deletePlayers(req.params.id)
+    .then((player) => {
+      res.format({
+        html: () => {
+          res.redirect('/players')
+        },
+        json: () => {
+            res.status(204).json(player)
+        }
+      })
+    }).catch((err) => {
+        console.log(err)
+        return next(err)
+    })
+})
+  
 
 // Gestion des errreurs
 router.use((err, req, res, next) => {
