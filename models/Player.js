@@ -23,12 +23,12 @@ module.exports = {
         //         console.log(err)
         //     })     
         // )   
-        const { lastID } = await db.run("INSERT INTO users VALUES(?, ?, ?, ?, ?, date('now'), date('now'))", body)
+        const { lastID } = await db.run("INSERT INTO Player (name, email, gamewin, gamelost, createdAt) VALUES(?, ?, ?, ?, date('now'))", [body.name, body.email, body.gamewin, body.gamelost])
     
         return this.findOneUser(lastID)   
     },
     
-    delete(id) {
+    deletePlayers(id) {
         return db.run("DELETE FROM Player WHERE rowid = ?", id)
     },
 }

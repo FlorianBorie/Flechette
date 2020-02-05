@@ -23,14 +23,20 @@ router.get('/players/new', (req, res, next) => {
 })
 
 router.get('/players/:id/edit', (req, res, next) => {
-    res.format({
-        html : () => {
-            res.render("tab_player")
-        },
-        json : () => {
-            res.status(406).json('NOT_API_AVAILABLE')
+      Player.findOnePlayers(req.params.id)
+      .then((players) => {
+        if (!players) {
+          return next(new Error("404 NOT FOUND"))
         }
-    })
+        res.render("tab_player", {
+          title: "Update joueur",
+          formTitle: "Edit joueur n°" + req.params.id,
+          players: players,
+          idAndMethod: "/" + req.params.id + "?_method=PATCH"
+        })
+      }).catch((err) => {
+        return next(err)
+      })
 })
 
 
@@ -80,8 +86,8 @@ router.get('/players', (req, res, next) => {
                 content += '<td>' + player['gamelost'] + '</td>'
                 content += '<td>' + player['createdAt'] + '</td>'
                 content += '<td> <form action="/players/'+player['id']+'/edit/?_method=GET", method="GET"> <button type="submit" class="btn btn-success"><i class="fa fa-pencil fa-lg mr-2"></i>Edit</button> </form> </td>'
-                content += '<td> <form action="/players/'+player['id']+'/?_method=GET", method="GET"> <button type="submit" class="btn btn-info"><i class="fa fa-eye fa-lg mr-2"></i>See</button> </form> </td>'
-                content += '<td> <form action="/players/'+player['id']+'/?_method=DELETE", method="POST"> <button type="submit" class="btn btn-danger"><i class="fa fa-trash-o fa-lg mr-2"></i>Remove</button> </form> </td>'
+                // content += '<td> <form action="/players/'+player['id']+'/?_method=GET", method="GET"> <button type="submit" class="btn btn-info"><i class="fa fa-eye fa-lg mr-2"></i>See</button> </form> </td>'
+                content += '<td> <form action="/players/'+player['id']+'/?_method=DELETE", method="DELETE"> <button type="submit" class="btn btn-danger"><i class="fa fa-trash-o fa-lg mr-2"></i>Remove</button> </form> </td>'
                 content += '</tr>'
               })
               
