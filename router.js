@@ -12,8 +12,7 @@ router.get('/players/new', (req, res, next) => {
     res.format({
         html : () => {
             res.render("tab_player", {
-                formTitle: "Ajoute un joueur",
-                idAndMethod: "/?_method=POST"
+                formTitle: "Ajoute un joueur"
             })
         },
         json : () => {
@@ -28,11 +27,10 @@ router.get('/players/:id/edit', (req, res, next) => {
         if (!players) {
           return next(new Error("404 NOT FOUND"))
         }
-        res.render("tab_player", {
-          title: "Update joueur",
-          formTitle: "Edit joueur n°" + req.params.id,
-          players: players,
-          idAndMethod: "/" + req.params.id + "?_method=PATCH"
+        res.render("tab_player_update", {
+            title: "Update joueur",
+            formTitle: "Edit joueur n°" + req.params.id,
+            players: players
         })
       }).catch((err) => {
         return next(err)
@@ -132,7 +130,7 @@ router.post('/players/:id', (req, res, next) => {
     .then((player) => {
       res.format({
         html: () => {
-          res.redirect('/players')
+            res.redirect('/players')
         },
         json: () => {
             res.status(204).json(player)
@@ -143,7 +141,46 @@ router.post('/players/:id', (req, res, next) => {
         return next(err)
     })
 })
-  
+
+// Mettre à jour les joueurs
+router.post('players/:id/edit', (req, res, next) => {
+    console.log('coucou')
+    if (req.params.id % 1 !== 0) {
+        return next(new Error("404 NOT FOUND"))
+      }
+
+      let changesInformation = {}
+
+      if (req.body.name) {
+        changesInformation.name = req.body.name
+      }
+      if (req.body.email) {
+        changesInformation.email = req.body.email
+      }
+      if (req.body.gamewin) {
+        changesInformation.gamewin = req.body.gamewin
+      }
+      if (req.body.gamelost) {
+        changesInformation.gamelost = req.body.gamelost
+      }    
+
+      changesInformation.id = req.params.id
+
+    Player.updatePlayers(changesInformation)
+    .then((players) => {
+        res.format({
+            html: () => {
+                res.redirect('/players')
+            },
+            json: () => {
+                res.status(200).json({message : 'sucess'})
+            }
+        })
+    }).catch((err) => {
+        console.log(err)
+        return next(err)
+    })
+})  
 
 // Gestion des errreurs
 router.use((err, req, res, next) => {

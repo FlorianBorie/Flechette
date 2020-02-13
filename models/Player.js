@@ -31,5 +31,14 @@ module.exports = {
     deletePlayers(id) {
         return db.run("DELETE FROM Player WHERE rowid = ?", id)
     },
-    
+    async updatePlayers(body) {
+        console.log(body)
+      const { changesInformation } = await db.run("UPDATE Player SET name = ?, email = ?, gamewin = ?, gamelost = ? WHERE rowid = ?", body)
+      
+      if (changesInformation !== 0) {
+        return this.findOnePlayers(req.params.id)
+      } else {
+        return Promise.reject({ message: "Je ne trouve pas l'id que vous voulez mettre à jour" })
+      }
+    },
 }

@@ -8,8 +8,4 @@ router.get('/:id', (req, res, next) => {
   res.send(req.url)
 })
 
-// router.post('/players', (req, res, next) => {
-//   res.render("../views/player.js")
-// })
-
 module.exports = router
