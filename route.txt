@@ -1,0 +1,7 @@
+routes ok :
+    /
+    get/players btn supprimer ne fonctionne toujours pas
+    post/players normalement fonctionne
+    get/players/new affiche bien le formulaire pb avec ajout
+    GET /players/{id} OK
+    GET /players/{id}/edit normalement OK

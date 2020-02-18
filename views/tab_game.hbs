@@ -13,23 +13,19 @@
 <div class="container text-center mt-4">
         <h1>{{ formTitle }}</h1>
     </div>
-    <form action="/players", method="POST">
+    <form action="/games", method="POST">
         <div class="container mt-5">
             <div class="form-group">
+                <label for="mode">Mode :</label>
+                <input class="form-control" id="mode" name="mode" type="text" value="{{#if games.mode}}{{games.mode}}{{/if}}"/>
+            </div>
+            <div class="form-group">
                 <label for="name">Name :</label>
-                <input class="form-control" id="name" name="name" type="text" value="{{#if players.name}}{{players.name}}{{/if}}"/>
+                <input class="form-control" id="name" name="name" type="text" value="{{#if games.name}}{{games.name}}{{/if}}"/>
             </div>
             <div class="form-group">
-                <label for="email">Email :</label>
-                <input class="form-control" id="email" name="email" type="email" value="{{#if players.email}}{{players.email}}{{/if}}"/>
-            </div>
-            <div class="form-group">
-                <label for="gamewin">Gamewin :</label>
-                <input class="form-control" id="gamewin" name="gamewin" type="text" value="{{#if players.gamewin}}{{players.gamewin}}{{/if}}"/>
-            </div>
-            <div class="form-group">
-                <label for="gamelost">Gamelost :</label>
-                <input class="form-control" id="gamelost" name="gamelost" type="gamelost" value="{{#if players.gamelost}}{{players.gamelost}}{{/if}}"/>
+                <label for="currentPlayerId">currentPlayerId :</label>
+                <input class="form-control" id="currentPlayerId" name="currentPlayerId" type="text" value="{{#if games.currentPlayerId}}{{games.currentPlayerId}}{{/if}}"/>
             </div>
              <button type="submit" class="btn btn-primary">Submit</button>
         </div>

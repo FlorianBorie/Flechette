@@ -2,7 +2,7 @@ const db = require('sqlite')
 
 module.exports = {
     getAllGames() {
-        return db.all("SELECT rowid AS id, * FROM Game")
+        return db.all("SELECT rowid AS id, * FROM Game LIMIT 3")
     },
 
     findOneGames(id) {
@@ -10,28 +10,16 @@ module.exports = {
     },
 
     async insertGames(body) {
-        // db.run("INSERT INTO Player (name, email, gamewin, gamelost, createdAt) VALUES(?, ?, ?, ?, ?)", 
-        //     [body.name, body.email, body.gamewin, body.gamelost, Date.now()],
-        //     console.log('toto')
-        //     .then((body) => {
-        //         Console.log(body)
-        //         db.get("SELECT last_insert_rowid() as id", function (err, row) {
-        //             console.log('Last inserted id is: ' + row['id']);
-        //             return this.insertPlayers(body)
-        //         })
-        //     }).catch((err) => {
-        //         console.log(err)
-        //     })     
-        // )   
-        const { lastID } = await db.run("INSERT INTO users VALUES(?, ?, ?, ?, ?, date('now'), date('now'))", body)
+        
+        const { lastID } = await db.run("INSERT INTO Game (mode, name, currentPlayerId, createdAt) VALUES(?, ?, ?, date('now'))", [body.mode, body.name, body.currentPlayerId])
     
-        return this.findOneUser(lastID)   
+        return this.findOneGames(lastID)   
     },
     
-    deletePlayers(id) {
-        return db.run("DELETE FROM Player WHERE rowid = ?", id)
+    deleteGames(id) {
+        return db.run("DELETE FROM Game WHERE rowid = ?", id)
     },
-    async updatePlayers(params) {
+    async updateGames(params) {
       let string = ''
   
       for (k in params) {
@@ -40,10 +28,10 @@ module.exports = {
         }
       }
   
-      const { changes } = await db.run("UPDATE Player SET " + string + " updatedAt = date('now') WHERE rowid = ?", params)
+      const { changes } = await db.run("UPDATE Game SET " + string + " updatedAt = date('now') WHERE rowid = ?", params)
       
       if (changes !== 0) {
-        return this.findOnePlayers(params.id)
+        return this.findOneGames(params.id)
       } else {
         return Promise.reject({ message: "Je ne trouve pas l'id que vous voulez mettre à jour" })
       }

@@ -3,6 +3,7 @@ const donnee = require('./db')
 const bodyParser = require('body-parser')
 const express = require('express')
 const Player = require('./models/Player.js')
+const Game = require('./models/Game.js')
 
 // Variable glabales
 const app = express()

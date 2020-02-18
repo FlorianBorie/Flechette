@@ -13,23 +13,27 @@
 <div class="container text-center mt-4">
         <h1>{{ formTitle }}</h1>
     </div>
-    <form action="/players/:id/?_method=PATCH", method="POST">
+    <form action="/players/:id", method="POST">
         <div class="container mt-5">
+            <div style="visibility: hidden;">
+                <label for="id">id :</label>
+                <input class="form-control" id="id" name="id" type="Integer" value="{{#if Joueur.id}}{{Joueur.id}}{{/if}}"/>
+            </div>
             <div class="form-group">
                 <label for="name">Name :</label>
-                <input class="form-control" id="name" name="name" type="text" value="{{#if players.name}}{{players.name}}{{/if}}"/>
+                <input class="form-control" id="name" name="name" type="text" value="{{#if Joueur.name}}{{Joueur.name}}{{/if}}"/>
             </div>
             <div class="form-group">
                 <label for="email">Email :</label>
-                <input class="form-control" id="email" name="email" type="email" value="{{#if players.email}}{{players.email}}{{/if}}"/>
+                <input class="form-control" id="email" name="email" type="email" value="{{#if Joueur.email}}{{Joueur.email}}{{/if}}"/>
             </div>
             <div class="form-group">
                 <label for="gamewin">Gamewin :</label>
-                <input class="form-control" id="gamewin" name="gamewin" type="text" value="{{#if players.gamewin}}{{players.gamewin}}{{/if}}"/>
+                <input class="form-control" id="gamewin" name="gamewin" type="text" value="{{#if Joueur.gamewin}}{{Joueur.gamewin}}{{/if}}"/>
             </div>
             <div class="form-group">
                 <label for="gamelost">Gamelost :</label>
-                <input class="form-control" id="gamelost" name="gamelost" type="gamelost" value="{{#if players.gamelost}}{{players.gamelost}}{{/if}}"/>
+                <input class="form-control" id="gamelost" name="gamelost" type="gamelost" value="{{#if Joueur.gamelost}}{{Joueur.gamelost}}{{/if}}"/>
             </div>
              <button type="submit" class="btn btn-primary">Submit</button>
         </div>
