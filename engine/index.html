@@ -1,0 +1,216 @@
+<!-- BORIE Florian -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<script src='301.js'></script>
+<title>Jeu de flechette</title>
+</head>
+<body>
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="32"><img src="img/coin_sup_left.jpg" width="32" height="19"></td>
+    <td background="img/coter_sup.jpg"><img src="img/spacer.gif" width="10" height="19"></td>
+    <td width="34"><img src="img/coin_sup_right.jpg" width="34" height="19"></td>
+  </tr>
+  <tr>
+    <td background="img/coter_left.jpg"><img src="img/spacer.gif" width="32" height="10"></td>
+    <td background="img/middle_fond.jpg" style="padding:10px;"><table width="100%" border="0" cellspacing="0" cellpadding="0" style="border:1px #FFCC66 solid; font-family:sans-serif; color:#990000; font-size:12px;padding:2px; background-color:#FFF9DD;font-weight:bold;">
+      <tr>
+        <td width="250">Type de partie:
+            <select name="gameType" id="gameType" style="border:1px #990000 solid;background-color:#FFFFFF;color:#990000;font-weight:normal;">
+              <option value="301">301</option>
+          </select></td>
+        <td>Nom joueur #1:
+            <input name="j1Name" type="text" id="j1Name" value="Joueur #1" style="border:1px #990000 solid;background-color:#FFFFFF;color:#990000;font-weight:normal;">
+      &nbsp;&nbsp;&nbsp;Nom joueur #2:
+      <input name="j2Name" type="text" id="j2Name" value="Joueur #2" style="border:1px #990000 solid;background-color:#FFFFFF;color:#990000;font-weight:normal;">
+      <input name="GO" type="button" id="GO" value="GO" onClick="startgame();" style="border:1px #990000 solid;background-color:#FFFFCC;color:#990000;font-weight:bold;"></td>
+      </tr>
+    </table>
+    </td>
+    <td background="img/coter_right.jpg"><img src="./img/spacer.gif" width="34" height="10"></td>
+  </tr>
+  <tr>
+    <td><img src="img/coin_inf_left.jpg" width="32" height="18"></td>
+    <td background="img/coter_inf.jpg"><img src="img/spacer.gif" width="10" height="18"></td>
+    <td><img src="img/coin_inf_right.jpg" width="34" height="18"></td>
+  </tr>
+</table>
+<span id="showAll" style="display:none">
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="32"><img src="img/coin_sup_left.jpg" width="32" height="19"></td>
+    <td background="img/coter_sup.jpg"><img src="img/spacer.gif" width="10" height="19"></td>
+    <td width="34"><img src="img/coin_sup_right.jpg" width="34" height="19"></td>
+  </tr>
+  <tr>
+    <td background="img/coter_left.jpg"><img src="img/spacer.gif" width="32" height="10"></td>
+    <td background="img/middle_fond.jpg" style="padding:10px;"><span style="display:block">
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="500" align="center" valign="top"><img src="./img/plateforme.png" width="500" height="500" border="0" usemap="#Map"><img src="img/dard.png" width="425" height="154"><br>
+          </td>
+          <td align="right" valign="top" style="padding:10px;"><table width="100%"  border="0" cellspacing="0" cellpadding="0" style="border:1px #FFCC66 solid; font-family:sans-serif; color:#990000; font-size:12px;padding:2px; background-color:#FFF9DD;">
+                <tr>
+                  <td width="100" align="left" style="border-bottom:1px #990000 solid;"><strong>Scores</strong></td>
+                  <td style="border-bottom:1px #990000 solid;">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td width="100" align="left" style="font-weight:bold;border-bottom:1px #990000 dashed;">&nbsp;<span id="aj1Name"></span>:</td>
+                  <td align="left" style="border-bottom:1px #990000 dashed;">&nbsp;<span id="aj1Score"></span></td>
+                </tr>
+                <tr>
+                  <td width="100" align="left" style="font-weight:bold;border-bottom:1px #990000 solid;">&nbsp;<span id="aj2Name"></span>:</td>
+                  <td align="left" style="border-bottom:1px #990000 solid;">&nbsp;<span id="aj2Score"></span></td>
+                </tr>
+                <tr>
+                  <td colspan="2" style="border-bottom:1px #990000 solid;">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td align="left" style="font-weight:bold;border-bottom:1px #990000 dashed;">Coup obtenu: </td>
+                  <td align="left" style="border-bottom:1px #990000 dashed;">&nbsp;<span id="aCoup"></span></td>
+                </tr>
+                <tr>
+                  <td align="left" style="font-weight:bold;border-bottom:1px #990000 dashed;">Sommes:</td>
+                  <td align="left" style="border-bottom:1px #990000 dashed;">&nbsp;<span id="aSommeCoup"></span></td>
+                </tr>
+                <tr>
+                  <td align="left" style="font-weight:bold;border-bottom:1px #990000 dashed;">COUP #: </td>
+                  <td align="left" style="border-bottom:1px #990000 dashed;">&nbsp;<span id="aNbCoup"></span></td>
+                </tr>
+                <tr align="right">
+                  <td colspan="2" style="font-weight:bold;"><span id="showBTN" style="display:none">
+                    <input name="btnV" type="button" id="btnV" value="Valider" onClick="validerTirs();" style="border:1px #990000 solid;background-color:#FFFFCC;color:#990000;font-weight:bold;">
+                    <input name="btnA" type="button" id="btnA" value="Annuler" onClick="annulerTirs();" style="border:1px #990000 solid;background-color:#FFFFCC;color:#990000;font-weight:bold;">
+                  </span> </td>
+                </tr>
+              </table>
+              <br>
+              <table width="100%" border="0" cellspacing="1" cellpadding="0"  style="border:1px #FFCC66 solid; font-family:sans-serif; color:#990000; font-size:12px;padding:2px; background-color:#FFF9DD;">
+                <tr align="center">
+                  <td colspan="7" style="border: 1px #990000 solid; font-weight:bold;">Table des tirs </td>
+                </tr>
+                <tr>
+                  <td colspan="7" align="center" style="border: 1px #990000 solid;">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td width="25" align="center" style="border: 1px #990000 solid;">&nbsp;</td>
+                  <td colspan="3" align="center" style="border: 1px #990000 solid;"><span id="aj1NameTir"></span></td>
+                  <td colspan="3" align="center" style="border: 1px #990000 solid;"><span id="aj2NameTir"></span></td>
+                </tr>
+                <tr>
+                  <td align="center" style="border: 1px #990000 solid;">&nbsp;</td>
+                  <td align="center" style="border: 1px #990000 solid;"><strong>1X</strong></td>
+                  <td align="center" style="border: 1px #990000 solid;"><strong>2X</strong></td>
+                  <td align="center" style="border: 1px #990000 solid;"><strong>3X</strong></td>
+                  <td align="center" style="border: 1px #990000 solid;"><strong>1X</strong></td>
+                  <td align="center" style="border: 1px #990000 solid;"><strong>2X</strong></td>
+                  <td align="center" style="border: 1px #990000 solid;"><strong>3X</strong></td>
+                </tr>
+                <tr>
+                  <td width="25" align="center" style="border: 1px #990000 solid;"><strong>50</strong></td>
+                  <td align="center" colspan="3" style="border: 1px #990000 solid;"><span id="p1_1x50">0</span></td>
+                  <td align="center" colspan="3" style="border: 1px #990000 solid;"><span id="p2_1x50">0</span></td>
+                </tr>
+                <tr>
+                  <td width="25" align="center" style="border: 1px #990000 solid;"><strong>25</strong></td>
+                  <td align="center" colspan="3" style="border: 1px #990000 solid;"><span id="p1_1x25">0</span></td>
+                  <td align="center" colspan="3" style="border: 1px #990000 solid;"><span id="p2_1x25">0</span></td>
+                </tr>
+                <tr>
+                  <td width="25" align="center" style="border: 1px #990000 solid;"><strong></strong></td>
+                  <td align="center" style="border: 1px #990000 solid;"><span id="p1_1x">0</span></td>
+                  <td align="center" style="border: 1px #990000 solid;"><span id="p1_2x">0</span></td>
+                  <td align="center" style="border: 1px #990000 solid;"><span id="p1_3x">0</span></td>
+                  <td align="center" style="border: 1px #990000 solid;"><span id="p2_1x">0</span></td>
+                  <td align="center" style="border: 1px #990000 solid;"><span id="p2_2x">0</span></td>
+                  <td align="center" style="border: 1px #990000 solid;"><span id="p2_3x">0</span></td>
+                </tr>
+
+                <tr>
+                  <td width="25" align="center" style="border: 1px #990000 solid;"><strong>0</strong></td>
+                  <td align="center" colspan="3" style="border: 1px #990000 solid;"><span id="p1_1x0">0</span></td>
+                  <td align="center" colspan="3" style="border: 1px #990000 solid;"><span id="p2_1x0">0</span></td>
+                </tr>
+            </table></td>
+        </tr>
+      </table>    
+      </td>
+    <td background="img/coter_right.jpg"><img src="img/spacer.gif" width="34" height="10"></td>
+  </tr>
+  <tr>
+    <td><img src="img/coin_inf_left.jpg" width="32" height="18"></td>
+    <td background="img/coter_inf.jpg"><img src="img/spacer.gif" width="10" height="18"></td>
+    <td><img src="img/coin_inf_right.jpg" width="34" height="18"></td>
+  </tr>
+</table>
+</span>
+<map name="Map"><!-- Map Area Pour les zone cliquable sur l'image du jeu de flechette -->
+  <area shape="poly" coords="210,63,240,59,270,61,268,71,238,70,213,73" href="javascript:addTir(2,20);" alt="Double 20 :40">
+  <area shape="poly" coords="271,61,298,67,325,76,319,86,293,76,270,72" href="javascript:addTir(2,1);" alt="Double 1 :2">
+  <area shape="poly" coords="366,118,346,99,324,87,330,78,350,89,374,110" href="javascript:addTir(2,18);" alt="Double 18 :36">
+  <area shape="poly" coords="370,119,376,110,394,131,411,153,402,159,384,136" href="javascript:addTir(2,4);" alt="Double 4 :8">
+  <area shape="poly" coords="403,163,412,157,423,181,431,207,422,210,413,184" href="javascript:addTir(2,13);" alt="Double 13 :36">
+  <area shape="poly" coords="421,214,430,210,435,236,433,266,424,265,424,236" href="javascript:addTir(2,6);" alt="Double 6 :12">
+  <area shape="poly" coords="407,318,419,291,423,267,434,270,429,295,420,322" href="javascript:addTir(2,10);" alt="Double 10 :20">
+  <area shape="poly" coords="406,320,417,325,404,351,387,371,377,363,396,344" href="javascript:addTir(2,15);" alt="Double 15 :30">
+  <area shape="poly" coords="375,367,385,375,365,395,339,408,334,398,358,386" href="javascript:addTir(2,2);" alt="Double 2 :4">
+  <area shape="poly" coords="331,401,338,410,315,421,286,427,284,417,311,411" href="javascript:addTir(2,17);" alt="Double 17 :34">
+  <area shape="poly" coords="281,418,282,429,253,433,226,430,229,420,253,422" href="javascript:addTir(2,3);" alt="Double 3 :6">
+  <area shape="poly" coords="224,419,224,429,195,424,170,414,176,406,200,413" href="javascript:addTir(2,19);" alt="Double 19 :38">
+  <area shape="poly" coords="168,413,174,403,150,391,129,375,120,384,145,402" href="javascript:addTir(2,7);" alt="Double 7 :14">
+  <area shape="poly" coords="117,380,126,372,109,352,96,331,83,337,98,358" href="javascript:addTir(2,16);" alt="Double 16 :32">
+  <area shape="poly" coords="83,334,94,329,83,304,75,279,63,280,72,308" href="javascript:addTir(2,8);" alt="Double 8 :16">
+  <area shape="poly" coords="64,277,75,275,70,249,74,225,63,222,61,247" href="javascript:addTir(2,11);" alt="Double 11 :22">
+  <area shape="poly" coords="64,217,74,221,79,196,89,173,78,166,69,194" href="javascript:addTir(2,14);" alt="Double 14 :28">
+  <area shape="poly" coords="81,162,92,167,103,148,120,127,110,118,95,140" href="javascript:addTir(2,9);" alt="Double 9 :18">
+  <area shape="poly" coords="114,115,122,125,139,108,161,94,154,83,129,101" href="javascript:addTir(2,12);" alt="Double 12 :24">
+  <area shape="poly" coords="159,81,164,92,188,81,212,74,208,63,182,70" href="javascript:addTir(2,5);" alt="Double 5 :10">
+  <area shape="poly" coords="164,96,189,85,213,79,225,131,191,142" href="javascript:addTir(1,5);" alt="Simple 5 :5">
+  <area shape="poly" coords="217,79,229,128,260,127,266,75" href="javascript:addTir(1,20);" alt="Simple 20 :20">
+  <area shape="poly" coords="270,75,318,90,297,134,264,128" href="javascript:addTir(1,1);" alt="Simple 1 :1">
+  <area shape="poly" coords="300,136,328,154,362,119,321,90" href="javascript:addTir(1,18);" alt="Simple 18 :18">
+  <area shape="poly" coords="365,120,396,162,354,185,331,156" href="javascript:addTir(1,4);" alt="Simple 4 :4">
+  <area shape="poly" coords="399,166,417,210,366,220,353,188" href="javascript:addTir(1,13);" alt="Simple 13 :13">
+  <area shape="poly" coords="365,223,417,213,421,264,367,257" href="javascript:addTir(1,6);" alt="Simple 6 :6">
+  <area shape="poly" coords="358,292,367,258,420,267,406,316" href="javascript:addTir(1,10);" alt="Simple 10 :10">
+  <area shape="poly" coords="338,325,356,296,403,319,375,361" href="javascript:addTir(1,15);" alt="Simple 15 :15">
+  <area shape="poly" coords="309,347,336,329,372,364,337,398" href="javascript:addTir(1,2);" alt="Simple 2 :2">
+  <area shape="poly" coords="283,414,333,397,305,347,273,359" href="javascript:addTir(1,17);" alt="Simple 17 :17">
+  <area shape="poly" coords="232,417,279,414,269,361,235,363" href="javascript:addTir(1,3);" alt="Simple 3 :3">
+  <area shape="poly" coords="177,401,228,415,232,364,198,354" href="javascript:addTir(1,19);" alt="Simple 19 :19">
+  <area shape="poly" coords="194,354,167,334,133,371,175,400" href="javascript:addTir(1,7);" alt="Simple 7 :7">
+  <area shape="poly" coords="131,369,98,330,142,305,166,333" href="javascript:addTir(1,16);" alt="Simple 16 :16">
+  <area shape="poly" coords="143,299,129,269,80,279,96,327" href="javascript:addTir(1,8);" alt="Simple 8 :8">
+  <area shape="poly" coords="132,264,129,232,77,225,78,277" href="javascript:addTir(1,11);" alt="Simple 11 :11">
+  <area shape="poly" coords="129,229,140,195,91,173,77,222" href="javascript:addTir(1,14);" alt="Simple 14 :14">
+  <area shape="poly" coords="144,192,159,166,121,131,97,172" href="javascript:addTir(1,9);" alt="Simple 9 :9">
+  <area shape="poly" coords="161,162,187,142,163,97,123,128" href="javascript:addTir(1,12);" alt="Simple 12 :12">
+  <area shape="poly" coords="231,142,260,140,262,131,227,131" href="javascript:addTir(3,20);" alt="Triple 20 :60">
+  <area shape="poly" coords="264,141,264,131,281,134,295,140,291,148,276,144" href="javascript:addTir(3,1);" alt="Triple 1 :3">
+  <area shape="poly" coords="295,149,299,141,312,147,328,159,320,167,308,157" href="javascript:addTir(3,18);" alt="Triple 18 :54">
+  <area shape="poly" coords="329,162,339,174,350,189,341,193,331,180,321,169" href="javascript:addTir(3,4);" alt="Triple 4 :12">
+  <area shape="poly" coords="343,195,352,190,358,205,363,221,353,223" href="javascript:addTir(3,13);" alt="Triple 13 :39">
+  <area shape="poly" coords="354,226,364,224,364,241,365,257,356,256,355,241" href="javascript:addTir(3,6);" alt="Triple 6 :18">
+  <area shape="poly" coords="354,260,364,262,360,279,355,291,347,288,353,274" href="javascript:addTir(3,10);" alt="Triple 10 :30">
+  <area shape="poly" coords="328,316,338,304,345,290,353,295,345,312,336,323" href="javascript:addTir(3,15);" alt="Triple 15 :45">
+  <area shape="poly" coords="302,336,325,318,335,325,320,336,305,344" href="javascript:addTir(3,2);" alt="Triple 2 :6">
+  <area shape="poly" coords="299,339,303,345,272,357,269,349,284,344" href="javascript:addTir(3,17);" alt="Triple 17 :51">
+  <area shape="poly" coords="240,349,270,348,269,357,253,360,238,359" href="javascript:addTir(3,3);" alt="Triple 3 :9">
+  <area shape="poly" coords="234,349,204,340,200,350,218,356,234,360" href="javascript:addTir(3,19);" alt="Triple 19 :57">
+  <area shape="poly" coords="177,323,202,339,198,349,183,341,169,330" href="javascript:addTir(3,7);" alt="Triple 7 :21">
+  <area shape="poly" coords="174,320,167,327,156,314,147,300,157,295" href="javascript:addTir(3,16);" alt="Triple 16 :48">
+  <area shape="poly" coords="145,267,155,292,145,298,138,283,135,268" href="javascript:addTir(3,8);" alt="Triple 8 :24">
+  <area shape="poly" coords="144,262,136,263,133,245,133,231,143,234" href="javascript:addTir(3,11);" alt="Triple 11 :33">
+  <area shape="poly" coords="144,228,134,228,138,210,143,197,152,201" href="javascript:addTir(3,14);" alt="Triple 14 :42">
+  <area shape="poly" coords="154,195,145,192,163,167,169,175" href="javascript:addTir(3,9);" alt="Triple 9 :27">
+  <area shape="poly" coords="172,169,166,164,176,154,191,146,196,154" href="javascript:addTir(3,12);" alt="Triple 12 :36">
+  <area shape="poly" coords="200,151,194,143,210,137,224,134,227,142" href="javascript:addTir(3,5);" alt="Triple 5 :15">
+  <area shape="circle" coords="249,245,7"  href="javascript:addTir(1,50);" alt="Centre Int�rieur : 50">
+  <area shape="poly" coords="246,261,247,253,240,249,240,239,245,236,256,238,257,249,252,253,253,259,263,255,267,241,261,228,247,225,234,230,229,246,234,260" href="javascript:addTir(1,25);" alt="Centre Ext�rieur : 25">
+  <area shape="poly" coords="247,436,240,493,119,460,61,410,18,335,6,237,35,123,104,48,173,15,242,4,331,16,398,56,441,96,477,157,489,211,478,336,451,389,385,454,336,478,257,497,260,438,346,415,395,378,420,336,440,287,439,217,411,135,362,88,318,65,248,54,174,68,112,106,79,155,54,218,56,284,73,341,124,399,181,431" href="javascript:addTir(1,0);" alt="MISS:0">
+</map>
+</body>
+</html>
+<!-- BORIE Florian -->
