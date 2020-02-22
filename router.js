@@ -11,7 +11,8 @@ const Partie = require('./models/Game')
 router.all('/', (req, res, next) => {
     res.format({
         html : () => {
-            res.redirect(301, '/games')    
+            res.redirect(301, '/games')   
+            
         },
         json : () => {
             res.status(406).send('API_NOT_AVAILABLE')
@@ -19,6 +20,17 @@ router.all('/', (req, res, next) => {
     })
 })
 
+ /* router.get('/games/play', (req, res, next) => {
+     res.format({
+         html : () => {
+             res.render("games")  
+         },
+         json : () => {
+             res.status(406).send('API_NOT_AVAILABLE')
+         }
+     })
+ })
+*/
 // Affiche le tableau pour création du joueur
 router.get('/players/new', (req, res, next) => {
     res.format({
@@ -76,7 +88,7 @@ router.post('/players/:id', (req, res, next) => {
                 res.redirect('/players')
             },
             json: () => {
-                res.status(200).json({message : 'sucess'})
+                res.status(200).json(Joueur)
             }
         })
     }).catch((err) => {
@@ -106,12 +118,12 @@ router.get('/players/:id', (req, res, next) => {
 
 // Affiche tous les players
 router.get('/players', (req, res, next) => {
-    Joueur.getAllPlayers()
-    .then((Joueur) => {  
+    Joueur.getAllPlayers(req.query)
+    .then((Joueur) => { 
         res.format({
             html: () => { // Prepare content
               let content = '<table class="table"><tr><th>ID</th><th>Name</th><th>Email</th><th>GameWin</th><th>GameLost</th><th>createdAt</th></tr>'
-              
+  
               Joueur.forEach((Joueur) => {
                 content += '<tr>'
                 content += '<td>' + Joueur['id'] + '</td>'
@@ -137,7 +149,7 @@ router.get('/players', (req, res, next) => {
             }
           })
         }).catch((err) => {
-        console.log('LE CATCH')
+        console.log(err)
         return next(err)
     })
 })
@@ -172,6 +184,7 @@ router.post('/players/delete/:id', (req, res, next) => {
         }
       })
     }).catch((err) => {
+        res.status(410).json('PLAYER_NOT_DELETABLE')
         console.log(err)
         return next(err)
     })
@@ -218,9 +231,6 @@ router.post('/games/:id', (req, res, next) => {
       if (req.body.name) {
         changesInformation.name = req.body.name
       }
-      if (req.body.currentPlayerId) {
-        changesInformation.currentPlayerId = req.body.currentPlayerId
-      } 
 
       changesInformation.id = req.body.id
 
@@ -240,13 +250,17 @@ router.post('/games/:id', (req, res, next) => {
     })
 })  
 
-// Affiche un joueur selon le joueur et l'ID 
+// Affiche une partie selon son id
 router.get('/games/:id', (req, res, next) => {
     Partie.findOneGames(req.params.id)
     .then((Partie) => {
         res.format({
             html : () => {
-                res.redirect('/games/'+ Partie.id +'/edit')    
+                res.render('game', {
+                    title: "Partie",
+                    formTitle: "Partie n°" + req.params.id,
+                    Partie: Partie
+                })  
             },
             json : () => {
                 res.json(Partie)
@@ -260,18 +274,18 @@ router.get('/games/:id', (req, res, next) => {
 
 // Afficher la liste des parties
 router.get('/games', (req, res, next) => {
-    Partie.getAllGames()
+    Partie.getAllGames(req.query)
     .then((parties) => {  
         res.format({
             html: () => { // Prepare content
-              let content = '<table class="table"><tr><th>ID</th><th>Mode</th><th>Name</th><th>currentPlayerId</th><th>createdAt</th></tr>'
+              let content = '<table class="table"><tr><th>ID</th><th>Mode</th><th>Name</th><th>Status</th><th>CreatedAt</th></tr>'
               
               parties.forEach((partie) => {
                 content += '<tr>'
                 content += '<td>' + partie['id'] + '</td>'
                 content += '<td>' + partie['mode'] + '</td>'
                 content += '<td>' + partie['name'] + '</td>'
-                content += '<td>' + partie['currentPlayerId'] + '</td>'
+                content += '<td>' + partie['status'] + '</td>'
                 content += '<td>' + partie['createdAt'] + '</td>'
                 content += '<td> <form action="/games/'+partie['id']+'/?_method=GET", method="GET"> <button type="submit" class="btn btn-success"><i class="fa fa-pencil fa-lg mr-2"></i>Edit</button> </form> </td>'
                 content += '<td> <form action="/players/?_method=GET", method="GET"> <button type="submit" class="btn btn-info"><i class="fa fa-eye fa-lg mr-2"></i>See</button> </form> </td>'
@@ -301,7 +315,7 @@ router.post('/games', (req, res, next) => {
     .then((Partie) => { 
         res.format({
             html : () => {
-                res.redirect(301, '/games' )    
+                res.redirect(301, '/games/' + Partie.id )    
             },
             json : () => {
                 res.status(201).json(Partie)
@@ -329,6 +343,8 @@ router.post('/games/delete/:id', (req, res, next) => {
         return next(err)
     })
 })
+
+
 
 // Gestion des errreurs
 router.use((err, req, res, next) => {

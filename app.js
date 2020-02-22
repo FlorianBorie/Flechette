@@ -14,6 +14,7 @@ const router = require('./router')
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended : false }))
 app.set('views', './views')
+app.set('engine','./engine')
 app.set('view engine', 'hbs')
 
 // USE ROUTER

@@ -13,19 +13,19 @@
 <div class="container text-center mt-4">
         <h1>{{ formTitle }}</h1>
     </div>
-    <form action="/games/:id/?_method=PATCH", method="POST">
+    <form action="/games/:id/", method="POST">
         <div class="container mt-5">
+            <div style="visibility: hidden;">
+                <label for="id">id :</label>
+                <input class="form-control" id="id" name="id" type="Integer" value="{{#if Partie.id}}{{Partie.id}}{{/if}}"/>
+            </div>
             <div class="form-group">
                 <label for="mode">Mode :</label>
-                <input class="form-control" id="mode" name="mode" type="text" value="{{#if games.mode}}{{games.mode}}{{/if}}"/>
+                <input class="form-control" id="mode" name="mode" type="text" value="{{#if Partie.mode}}{{Partie.mode}}{{/if}}"/>
             </div>
             <div class="form-group">
                 <label for="name">Name :</label>
-                <input class="form-control" id="name" name="name" type="text" value="{{#if games.name}}{{games.name}}{{/if}}"/>
-            </div>
-            <div class="form-group">
-                <label for="currentPlayerId">currentPlayerId :</label>
-                <input class="form-control" id="currentplayerid" name="currentplayerid" type="text" value="{{#if games.currentplayerid}}{{games.currentplayerid}}{{/if}}"/>
+                <input class="form-control" id="name" name="name" type="text" value="{{#if Partie.name}}{{Partie.name}}{{/if}}"/>
             </div>
              <button type="submit" class="btn btn-primary">Submit</button>
         </div>
