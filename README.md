@@ -8,3 +8,6 @@ Ensuite vous pouvez télécharger les modules avec la commande :
 
  Et pour lancer le projet vous devez faire :
 - ```npm start```
+
+
+Pour voir les différents mode de jeux il faut aller sur la banche ```engine``` ou sinon pour aller sur l'api, il faut aller sur la branche ```api```
