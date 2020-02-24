@@ -10,4 +10,4 @@ Ensuite vous pouvez télécharger les modules avec la commande :
 - ```npm start```
 
 
-Pour voir les différents mode de jeux il faut aller sur la banche ```engine``` ou sinon pour aller sur l'api, il faut aller sur la branche ```api```
+Pour voir les différents mode de jeux il faut aller sur la banche ```engine``` ou sinon pour aller sur l'api, il faut aller sur la branche ```master```
