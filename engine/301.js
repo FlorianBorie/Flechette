@@ -1,4 +1,4 @@
-// Initialisation des variable pour le joueur 1
+// Initialisation des variables pour le joueur 1
 player = Array();
 player[0] = Array();
 player[0]["name"] = 'Joueur #1';
@@ -22,7 +22,7 @@ for(var x=0;x<21;x++){
 player[0]["triple"][x] = 0;
 }
 
-// Initialisation des variable pour le joueur 2
+// Initialisation des variables pour le joueur 2
 player[1] = Array();
 player[1]["name"] = 'Joueur #2';
 player[1]["score"] = 0;
@@ -57,8 +57,8 @@ function startgame(){ // function pour initialiser une nouvelle partie
 	player[0]["score"] = game["type"];
 	player[1]["score"] = game["type"];
 	
-	//Affecte les nom des joueus dans le design 
-	//Nom a coter des score
+	//Affecter les noms des joueurs dans le design 
+	//Nom a coter des scores
 	document.getElementById('aj1Name').innerHTML = player[0]["name"]; 
 	document.getElementById('aj2Name').innerHTML = player[1]["name"];
 	//Nom dans la table de tir
@@ -68,14 +68,14 @@ function startgame(){ // function pour initialiser une nouvelle partie
 	//Affiche la section de la page qui contient le compteur
 	document.getElementById('showAll').style.display = "block";
 	
-	//initialise les variable necessaire au focntionnement
-	pTurn = 0; // Tour tu joueur 0 = joueur#1, 1 = joueur#2
+	//initialise les variables necessaire au fonctionnement
+	pTurn = 0; // Tour du joueur 0 = joueur#1, 1 = joueur#2
 	nbCoup = 0; // nombre de coup effectuer par le joueur actif
 	tir = Array(); // tableau des tirs effectuer pendant le tour du joueur
 	tir[1] = 0; 
 	tir[2] = 0; 
 	tir[3] = 0;
-	tir["somme"] = 0; // somme des tir effectuer pendant le tour du joueur
+	tir["somme"] = 0; // somme des tirs effectuer pendant le tour du joueur
 
 	showInfo(); // appelle de la fonction showInfo();
 	alert("Bonne partie !!"); // Boite d'alert 
